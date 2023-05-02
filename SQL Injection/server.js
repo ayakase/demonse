@@ -29,29 +29,27 @@ app.get('/', (req, res) => {
         }
     });
 });
-app.get('/list', (req, res) => {
-    con.query('SELECT * FROM account ORDER BY id DESC', (err, results) => {
-        if (err) {
-            console.error(err);
-        } else {
-            res.render('list', { users: results });
-        }
-    });
-});
 
-app.post('/submit', (req, res) => {
+app.post('/submit', function(req, res) {
     const username = req.body.username;
     const password = req.body.password;
-    console.log(`Username: ${username}`);
-    console.log(`Password: ${password}`);
-    con.query('INSERT INTO account (username, password) VALUES (?, ?)', [username, password], (err, results) => {
-        if (err) {
-            console.error(err);
-        } else {
-            console.log('Gotcha!');
-        }
+    con.query("SELECT * FROM users WHERE username = '" + username + "' AND password = '" + password + "'", [username, password], function(error, results, fields) {
+      if (error) {
+        console.error(error);
+        res.render('failed');
+        return;
+      }
+  
+      if (results.length === 0) {
+        res.render('failed');
+        return;
+      }
+      res.render('success');
     });
-});
+  });
+  
 app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
+
+//  ' OR 1=1--'
