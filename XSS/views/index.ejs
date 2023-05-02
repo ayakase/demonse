@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>XSS Demo</title>
-  </head>
-  <body>
-    <h1>Hello, <%= username %></h1>
-    <form>
-      <input type="text" name="username" placeholder="Enter your name">
-      <button type="submit">Submit</button>
-    </form>
-    <div>
-      <%-
-        `<p>${username}</p>`
-      %>
-    </div>
-  </body>
+
+<head>
+  <title>XSS Demo</title>
+</head>
+
+<body>
+  <div class="container">
+<p>Hover over the <b id="my-b-tag" onmouseover="console.log('The <b> tag was hovered over!');" onmouseout="console.log('The mouse left the <b> tag.');">bold text</b> to log a message to the console.</p>
+
+    <% for (let i=0; i < message.length; i++) { %>
+      <li>
+        <tr>
+          <%= message[i].message %>
+        </tr>
+      </li>
+      <% } %>
+        <form action="/submit" method="POST">
+          <input type="text" name="message" id="message">
+        </form>
+  </div>
+  <script>
+    // function showMessage(message) {
+    //   document.getElementById("message").innerHTML = message;
+    // }
+  </script>
+</body>
+
 </html>
