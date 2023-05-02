@@ -22,13 +22,20 @@ app.get('/', (req, res) => {
     if (err) {
       console.error(err);
     } else {
-      let html = ''
-      let form = `<form action="/submit" method="POST" onsubmit="setTimeout(function(){ location.reload(); }, 200);"><input type="text" name="message" id="message"><input type="submit" value="Submit"></form>`
+      let html = '';
+      let form = `<form action="/submit" method="POST" onsubmit="setTimeout(function(){ location.reload(); }, 200);">
+             <input type="text" name="message" id="message" style="width: 50rem; padding: 0.5rem; border: 1px solid black; border-radius: 0.5rem 0 0 0.5rem;">
+             <button type="submit" style="padding: 0.5rem; border: none; background-color: #007bff; color: #fff; border-radius: 0 0.5rem 0.5rem 0;">Send</button>
+           </form>`;
       for (let i = 0; i < results.length; i++) {
         const message = results[i];
-        html += '<div id="' + message.id + '">' + message.message + '</div>';
+        html += '<div id="' + message.id + '" class="message">' + message.message + '</div>';
       }
-      res.send(html + form  );
+      
+      html = '<div id="chat-container" style="height: 40rem; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; overflow: auto;">' + html + form + '<style> .message { padding: 1rem; margin: 0.5rem; border: 1px solid #ccc; border-radius: 0.5rem; } </style></div> <script> var container = document.getElementById("chat-container"); container.scrollTop = container.scrollHeight; </script>';
+      
+      res.send(html);
+      
     }
   });
 })
