@@ -14,8 +14,7 @@ app.get('/', (req, res) => {
   res.send('Server is running');
 });
 app.post('/', (req, res) => {
-  console.log('something:', req.body);
-  res.send('Received your cookie!');
+  console.log('Cookies:', req.body);
 });
 app.listen(4000, () => {
   console.log('Server started on port 4000');

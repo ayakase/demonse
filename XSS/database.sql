@@ -14,3 +14,4 @@ INSERT INTO chat (message) VALUES
 ('Congratulations on the promotion!'),
 ('Can you send me that file again?'),
 ('Looking forward to seeing you soon');
+

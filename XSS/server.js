@@ -24,9 +24,11 @@ app.get('/', (req, res) => {
     } else {
       let html = '';
       let form = `<form action="/submit" method="POST" onsubmit="setTimeout(function(){ location.reload(); }, 200);">
-             <input type="text" name="message" id="message" style="width: 50rem; padding: 0.5rem; border: 1px solid black; border-radius: 0.5rem 0 0 0.5rem;">
+             <textarea name="message" id="message" style="width: 50rem; height: 2rem; padding: 0.5rem; border: 1px solid black; border-radius: 0.5rem; overflow: hidden;"></textarea>
              <button type="submit" style="padding: 0.5rem; border: none; background-color: #007bff; color: #fff; border-radius: 0 0.5rem 0.5rem 0;">Send</button>
            </form>`;
+
+
       for (let i = 0; i < results.length; i++) {
         const message = results[i];
         html += '<div id="' + message.id + '" class="message">' + message.message + '</div>';
