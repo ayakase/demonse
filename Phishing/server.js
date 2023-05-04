@@ -1,6 +1,7 @@
 const express = require('express');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 
 const app = express();
@@ -15,6 +16,15 @@ const con = mysql.createConnection({
     password: '',
     database: 'demonse'
 });
+let requestCount = 0;
+
+function countRequests(req, res, next) {
+  requestCount++;
+  console.log(`Total Requests: ${requestCount}`);
+  next();
+}
+
+app.use(countRequests);
 app.get('/', (req, res) => {
     const data = {
         title: 'My EJS View',
